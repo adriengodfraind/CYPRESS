@@ -1,0 +1,425 @@
+(----------------------------------------------------------------------
+(
+(         Task Force on Test Systems for Voltage Stability
+(
+(                           Nordic System
+(
+(              Jhonatan Andrade dos Santos - EESC|USP
+(                 Rodrigo Andrade Ramos - EESC|USP
+(
+( If you are a registered user of ANAREDE/ANATEM, in case you experience
+( any dificulties with the use of these programs, you should send an 
+( e-mail to support-anarede [anatem] dre@cepel.br [anatem@cepel.br]
+(
+(----------------------------------------------------------------------
+(
+(===============================================================================
+( DADOS DE OPCOES DEFAULT DE EXECUCAO
+(===============================================================================
+DOPC IMPR
+(Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E
+CONT L 80CO L FILE L IMPR D
+999999
+(
+(===============================================================================
+( ASSOCIACAO DE ARQUIVO PARA SAIDA DE RELATORIOS, PLOTAGEM E MENSAGENS ( opcao FILE )
+(===============================================================================
+ULOG
+4
+SIS_A.out
+(
+ULOG
+8
+(SIS_A.plt
+SIS_A.txt 
+(
+ULOG
+9
+SIS_A.LOG
+(
+(===============================================================================
+( ASSOCIACAO DE ARQUIVO COM LOADFLOW E RESTABELECIMENTO DO CASO ( ANAREDE )
+(===============================================================================
+ULOG
+2
+SIS.sav
+ARQV REST IMPR
+1
+(
+(===============================================================================
+( ASSOCIACAO DE ARQUIVO COM MODELOS DE REGULADORES (ANATEM)
+(===============================================================================
+(
+ULOG
+3
+maq.BLT
+ARQM
+(
+ULOG
+3
+reg.CDU
+ARQM
+(
+ULOG
+3
+exciter.CDU
+ARQM
+(
+ULOG
+3
+LTC.cdu
+ARQM
+(
+(===============================================================================
+( DADOS DE MAQUINAS E ASSOCIACAO DAS MAQUINAS AOS CONTROLES
+(===============================================================================
+(
+DMAQ
+( Nb)   Gr (P) (Q) Und ( Mg ) ( Mt )u( Mv )u( Me )u(Xvd)(Nbc)
+( Gerador 01                     
+0081    01 100 100  01  0001     101u   201u
+( Gerador 02
+0082    01 100 100  01  0002     102u   202u
+( Gerador 03
+0083    01 100 100  01  0003     103u   203u
+( Gerador 04                     
+0084    01 100 100  01  0004     104u   204u
+( Gerador 05                     
+0085    01 100 100  01  0005     105u   205u
+( Gerador 06                     
+0086    01 100 100  01  0006     106u       
+( Gerador 07                     
+0087    01 100 100  01  0007     107u       
+( Gerador 08                     
+0088    01 100 100  01  0008     108u   208u
+( Gerador 09                     
+0089    01 100 100  01  0009     109u   209u
+( Gerador 10                     
+0810    01 100 100  01  0010     110u   210u
+( Gerador 11                     
+0811    01 100 100  01  0011     111u   211u
+( Gerador 12                     
+0812    01 100 100  01  0012     112u   212u
+( Gerador 13                     
+0813    01 100 100  01  0013     113u 
+( Gerador 14                     
+0814    01 100 100  01  0014     114u   
+( Gerador 15                     
+0815    01 100 100  01  0015     115u
+( Gerador 16                     
+0816    01 100 100  01  0016     116u
+( Gerador 17                     
+0817    01 100 100  01  0017     117u
+( Gerador 18                     
+0818    01 100 100  01  0018     118u
+( Gerador 19                     
+0819    01 100 100  01  0019     119u   219u
+( Gerador 20                     
+0820    01 100 100  01  0020     120u   220u
+999999
+(
+(
+(===============================================================================
+( DADOS DE MAQUINAS E ASSOCIACAO DAS MAQUINAS AOS CONTROLES
+(===============================================================================
+DLTC
+(        1         2         3         4
+(23456789012345678901234567890123456789012345678901234567890
+( Nf)   ( Nt) Nc ( Mt )u (Tmn) (Tmx) Nst ( Kbs)
+1011       11 01     11u  0.88 1.20   33    -11
+1012       12 01     12u  0.88 1.20   33    -12
+1013       13 01     13u  0.88 1.20   33    -13
+1022       22 01     22u  0.88 1.20   33    -22
+1041       01 01      1u  0.88 1.20   33     -1
+1042       02 01      2u  0.88 1.20   33     -2
+1043       03 01      3u  0.88 1.20   33     -3
+1044       04 01      4u  0.88 1.20   33     -4
+1045       05 01      5u  0.88 1.20   33     -5
+2031       31 01     31u  0.88 1.20   33    -31
+2032       32 01     32u  0.88 1.20   33    -32
+4041       41 01     41u  0.88 1.20   33    -41
+4042       42 01     42u  0.88 1.20   33    -42
+4043       43 01     43u  0.88 1.20   33    -43
+4046       46 01     46u  0.88 1.20   33    -46
+4047       47 01     47u  0.88 1.20   33    -47
+4051       51 01     51u  0.88 1.20   33    -51
+4061       61 01     61u  0.88 1.20   33    -61
+4062       62 01     62u  0.88 1.20   33    -62
+4063       63 01     63u  0.88 1.20   33    -63
+4071       71 01     71u  0.88 1.20   33    -71
+4072       72 01     72u  0.88 1.20   33    -72
+999999
+(
+(===============================================================================
+( ALTERAÇÃO DAS CARGAS
+(===============================================================================
+DCAR IMPR
+(tp) ( no) C (tp) ( no) C (tp) ( no)                (A) (B) (C) (D) (Vmn)
+AREA  0001 E AREA  0002                             100         100
+AREA  0003 E AREA  0004                             100         100
+(BARR  0001 A BARR 5000                              100         100
+999999 
+(
+(
+(===============================================================================
+( DADOS DE RELES DE SUBTENSAO
+(===============================================================================
+DREL MD10
+( De)   ( Pa) Nc (Ten) (Rel) (Tre) (Tdj) M ( Bm)
+(1042       86 01 0.900        3.0  0.05  A    86
+999999
+(===============================================================================
+( DADOS PARA PLOTAGEM
+(===============================================================================
+DPLT
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P
+( Potência ativa injetada pelas UGs
+PELE      081          01
+PELE      082          01
+PELE      083          01
+PELE      084          01
+PELE      085          01
+PELE      086          01
+PELE      087          01
+PELE      088          01
+PELE      089          01
+PELE     0810          01
+PELE     0811          01
+PELE     0812          01
+PELE     0813          01
+PELE     0814          01
+PELE     0815          01
+PELE     0816          01
+PELE     0817          01
+PELE     0818          01
+PELE     0819          01
+PELE     0820          01
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P  
+( Potência reativa injetada pelas UGs
+QELE      081          01
+QELE      082          01
+QELE      083          01
+QELE      084          01
+QELE      085          01
+QELE      086          01
+QELE      087          01
+QELE      088          01
+QELE      089          01
+QELE     0810          01
+QELE     0811          01
+QELE     0812          01
+QELE     0813          01
+QELE     0814          01
+QELE     0815          01
+QELE     0816          01
+QELE     0817          01
+QELE     0818          01
+QELE     0819          01
+QELE     0820          01
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P  
+( Frequência nas UGs
+FMAQ  *   081          01   
+FMAQ  *   082          01   
+FMAQ  *   083          01   
+FMAQ  *   084          01   
+FMAQ  *   085          01
+FMAQ  *   086          01
+FMAQ  *   087          01
+FMAQ  *   088          01
+FMAQ  *   089          01
+FMAQ  *  0810          01
+FMAQ  *  0811          01
+FMAQ  *  0812          01
+FMAQ  *  0813          01
+FMAQ  *  0814          01
+FMAQ  *  0815          01
+FMAQ  *  0816          01
+FMAQ  *  0817          01
+FMAQ  *  0818          01
+FMAQ  *  0819          01
+FMAQ  *  0820          01
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P  
+( Ângulo nas UGs em relação ao COI
+DELT      081          01   
+DELT      082          01   
+DELT      083          01   
+DELT      084          01   
+DELT      085          01
+DELT      086          01
+DELT      087          01
+DELT      088          01
+DELT      089          01
+DELT     0810          01
+DELT     0811          01
+DELT     0812          01
+DELT     0813          01
+DELT     0814          01
+DELT     0815          01
+DELT     0816          01
+DELT     0817          01
+DELT     0818          01
+DELT     0819          01
+DELT     0820          01
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P  
+( Tensão Terminal do Geradores
+VOLT     81 
+VOLT     82
+VOLT     83
+VOLT     84
+VOLT     85
+VOLT     86
+VOLT     87
+VOLT     88
+VOLT     89
+VOLT     810
+VOLT     811
+VOLT     812
+VOLT     813
+VOLT     814
+VOLT     815
+VOLT     816
+VOLT     817
+VOLT     818
+VOLT     819
+VOLT     820
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P  
+( Tensão nas barras de carga BT
+VOLT     11
+VOLT     12
+VOLT     13
+VOLT     22
+VOLT     1
+VOLT     2
+VOLT     3
+VOLT     4
+VOLT     5
+VOLT     31
+VOLT     32
+VOLT     41
+VOLT     42
+VOLT     43
+VOLT     46
+VOLT     47
+VOLT     51
+VOLT     61
+VOLT     62
+VOLT     63
+VOLT     71
+VOLT     72
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P  
+( Tensão nas barras de carga AT
+VOLT     1011
+VOLT     1012
+VOLT     1013
+VOLT     1022
+VOLT     1041
+VOLT     1042
+VOLT     1043
+VOLT     1044
+VOLT     1045
+VOLT     2031
+VOLT     2032
+VOLT     4041
+VOLT     4042
+VOLT     4043
+VOLT     4046
+VOLT     4047
+VOLT     4051
+VOLT     4061
+VOLT     4062
+VOLT     4063
+VOLT     4071
+VOLT     4072
+VOLT     4012
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P  
+( Corrente de Excitação
+CDU       101                             012
+CDU       102                             012 
+CDU       103                             012 
+CDU       104                             012 
+CDU       105                             012 
+CDU       106                             012 
+CDU       107                             012 
+CDU       108                             012 
+CDU       109                             012 
+CDU       110                             012 
+CDU       111                             012 
+CDU       112                             012 
+CDU       113                             012 
+CDU       114                             012 
+CDU       115                             012 
+CDU       116                             012 
+CDU       117                             012 
+CDU       118                             012 
+CDU       119                             012 
+CDU       120                             012 
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P  
+( TAP
+TAP      1011    11 01
+TAP      1012    12 01
+TAP      1013    13 01
+TAP      1022    22 01
+TAP      1041    01 01
+TAP      1042    02 01
+TAP      1043    03 01
+TAP      1044    04 01
+TAP      1045    05 01
+TAP      2031    31 01
+TAP      2032    32 01
+TAP      4041    41 01
+TAP      4042    42 01
+TAP      4043    43 01
+TAP      4046    46 01
+TAP      4047    47 01
+TAP      4051    51 01
+TAP      4061    61 01
+TAP      4062    62 01
+TAP      4063    63 01
+TAP      4071    71 01
+TAP      4072    72 01
+(Tipo)M( El ) ( Pa) Nc Gp ( Br) Gr ( Ex) (Bl) P  
+CDU       2                               052
+CDU       2                               060
+CDU       2                               009
+999999
+(
+(===============================================================================
+( DADOS DE EVENTOS
+(===============================================================================
+DEVT IMPR
+(Tp) ( Tempo)( El )( Pa)Nc( Ex) ( % ) (ABS ) Gr Und         (Bl)P ( Rc ) ( Xc ) ( Bc ) (Defas)
+( Perturbação 1
+APCB  2.0     4032
+RMCB  2.1     4032
+ABCI  2.1     4032 4044
+(RMGR   1.0    814                            01 01   
+( Pertubação 2
+(MDLD   1          1                   19.969
+(MDLD   1          2                   10.906
+(MDLD   1          3                    8.826
+(MDLD   1          4                   28.336
+(MDLD   1          5                   24.063
+(MDLD   1         41                   17.957
+(MDLD   1         42                   13.564
+(MDLD   1         43                   30.220
+(MDLD   1         46                   23.630
+(MDLD   1         47                    3.530
+(MDLD   1         51                   27.161 
+999999
+(
+(===============================================================================
+( DADOS DE SIMULACAO
+(===============================================================================
+DSIM
+( Tmax ) (Stp) ( P ) ( I )
+    400  0.002    5
+(
+(===============================================================================
+( EXECUCAO DA SIMULACAO
+(===============================================================================
+EXSI
+(
+(===============================================================================
+( FIM DA SIMULACAO
+(===============================================================================
+FIM

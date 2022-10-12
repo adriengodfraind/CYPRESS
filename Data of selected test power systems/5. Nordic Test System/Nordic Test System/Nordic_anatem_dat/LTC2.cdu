@@ -1,0 +1,458 @@
+(----------------------------------------------------------------------
+(
+(         Task Force on Test Systems for Voltage Stability
+(
+(                           Nordic System
+(
+(              Jhonatan Andrade dos Santos - EESC|USP
+(                 Rodrigo Andrade Ramos - EESC|USP
+(
+( If you are a registered user of ANAREDE/ANATEM, in case you experience
+( any dificulties with the use of these programs, you should send an 
+( e-mail to support-anarede [anatem] dre@cepel.br [anatem@cepel.br]
+(
+(----------------------------------------------------------------------
+DCDU
+(ncdu) ( nome cdu )
+ 4401  LTC_TF
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #BM1   0.01
+DEFPAR #BM2   0.01
+(flag1
+DEFPAR #T1    20.0
+DEFPAR #T2    5.0
+(DEFPAR #Tm    0.05 
+DEFPAR #TAP   0.01
+DEFPAR #VREF  1.0106
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+( Sensor com Banda Morta ----------------------------------------------                                 
+0001 IMPORT VLTc          VT
+0002 ENTRAD               VREF
+0003 SOMA         +VT     A1
+                  -VREF   A1
+0004 FUNCAO SINAL  A1     A2
+0005 FUNCAO ABS    A1     A3        
+0006 FUNCAO HISTE1 A3     A4     #BM1  0.0   1
+                                 #BM2  1.0
+0007 MULTPL        A4     A5
+                   A2     A5
+( Temporização T2 -----------------------------------------------------                                 
+0009 LOGIC  .NOT.  A4     A6   
+0010 LOGIC  .OR.   A6     B1                                            RESET
+                   D12    B1
+0011 ENTRAD               V1                                            VINIC
+0012 ENTRAD               AUX1
+0013 INTRES        AUX1   B2     1.0 
+                   B1     B2
+                   V1     B2
+0014 ENTRAD               B3
+0015 IMPORT DT            C1
+0016 GANHO         C1     C2     2.0
+0017 SOMA          B3     C3      
+                  -C2     C3
+0018 COMPAR .LE.   C3     B4
+                   B2     B4
+(0019 DELAY         B4     B5
+( Saída ---------------------------------------------------------------                                 
+0020 S/HOLD        A5     D1
+                   G4     D1
+0021 GANHO         D1     D2     #TAP  
+0022 SOMA          D2     D3
+                   D5     D3
+0023 S/HOLD        D3     D4
+                   G4     D4
+0024 DELAY         D4     D5  
+0025 DELAY         D5     D6 
+(0026 EXPORT TAP    D6
+0027 SOMA          D6     D7
+                  -D5     D7
+0028 FUNCAO ABS    D7     D8                         
+0029 GANHO         AUX1   D9     #TAP                  
+0030 COMPAR .GE.   D8     D10
+                   D9     D10    
+0031 DELAY         D10    D11
+0032 DELAY         D11    D12 
+(
+0040 IMPORT TAPMIN        E1
+0041 IMPORT TAPMAX        E2
+0042 LIMITA        D6     E3                              E1     E2          
+0043 EXPORT TAP    E3    
+( Seleção de Temporização ---------------------------------------------
+0050 LOGIC  .NOT.  D12    G1
+0051 GANHO         AUX1   G2     1.0
+0052 ACUM          AUX1   G3     -1.0                                                    
+                   G1     G3
+                   A6     G3
+                   G2     G3
+0053 SELET2        B4     G4
+                   F4     G4
+                   G3     G4
+0054 SAIDA         G4                                     
+( Temporização T1 -----------------------------------------------------                                 
+0060 INTRES        AUX1   F2     1.0 
+                   B1     F2
+                   V1     F2
+0061 ENTRAD               F3
+0062 IMPORT DT            H1
+0063 GANHO         H1     H2     2.0
+0064 SOMA          F3     H3      
+                  -H2     H3
+0065 COMPAR .LE.   H3     F4
+                   F2     F4
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        V1     0.0
+DEFVAL        AUX1   1.0   
+DEFVAL        B3     #T2
+DEFVAL        A4     0.0
+DEFVAL        B4     0.0
+DEFVAL        F4     0.0 
+DEFVAL        G4     0.0
+DEFVAL        B2     0.0
+DEFVAL  TAP   D6
+DEFVAL  TAP   D5
+DEFVAL  TAP   D4
+DEFVAL  TAP   D3 
+DEFVAL        F3     #T1
+DEFVAL        VREF   #VREF
+FIMCDU
+(
+(**********************************************************************
+(
+(ncdu) ( nome cdu )
+ 4402  LTC_TF
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #BM1   0.01
+DEFPAR #BM2   0.01
+(flag1
+DEFPAR #T1    20.0
+DEFPAR #T2    5.0
+(DEFPAR #Tm    0.05 
+DEFPAR #TAP   0.01
+DEFPAR #VREF  1.0106
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+( Sensor com Banda Morta ----------------------------------------------                                 
+0001 IMPORT VLTc          VT
+0002 ENTRAD               VREF
+0003 SOMA         +VT     A1
+                  -VREF   A1
+0004 FUNCAO SINAL  A1     A2
+0005 FUNCAO ABS    A1     A3        
+0006 FUNCAO HISTE1 A3     A4     #BM1  0.0   1
+                                 #BM2  1.0
+0007 MULTPL        A4     A5
+                   A2     A5
+( Temporização T2 -----------------------------------------------------                                 
+0009 LOGIC  .NOT.  A4     A6   
+0010 LOGIC  .OR.   A6     B1                                            RESET
+                   D12    B1
+0011 ENTRAD               V1                                            VINIC
+0012 ENTRAD               AUX1
+0013 INTRES        AUX1   B2     1.0 
+                   B1     B2
+                   V1     B2
+0014 ENTRAD               B3
+0015 IMPORT DT            C1
+0016 GANHO         C1     C2     2.0
+0017 SOMA          B3     C3      
+                  -C2     C3
+0018 COMPAR .LE.   C3     B4
+                   B2     B4
+(0019 DELAY         B4     B5
+( Saída ---------------------------------------------------------------                                 
+0020 S/HOLD        A5     D1
+                   G4     D1
+0021 GANHO         D1     D2     #TAP  
+0022 SOMA          D2     D3
+                   D5     D3
+0023 S/HOLD        D3     D4
+                   G4     D4
+0024 DELAY         D4     D5  
+0025 DELAY         D5     D6 
+(0026 EXPORT TAP    D6
+0027 SOMA          D6     D7
+                  -D5     D7
+0028 FUNCAO ABS    D7     D8                         
+0029 GANHO         AUX1   D9     #TAP                  
+0030 COMPAR .GE.   D8     D10
+                   D9     D10    
+0031 DELAY         D10    D11
+0032 DELAY         D11    D12 
+(
+0040 IMPORT TAPMIN        E1
+0041 IMPORT TAPMAX        E2
+0042 LIMITA        D6     E3                              E1     E2          
+0043 EXPORT TAP    E3    
+( Seleção de Temporização ---------------------------------------------
+0050 LOGIC  .NOT.  D12    G1
+0051 GANHO         AUX1   G2     1.0
+0052 ACUM          AUX1   G3     -1.0                                                    
+                   G1     G3
+                   A6     G3
+                   G2     G3
+0053 SELET2        B4     G4
+                   F4     G4
+                   G3     G4
+0054 SAIDA         G4                                     
+( Temporização T1 -----------------------------------------------------                                 
+0060 INTRES        AUX1   F2     1.0 
+                   B1     F2
+                   V1     F2
+0061 ENTRAD               F3
+0062 IMPORT DT            H1
+0063 GANHO         H1     H2     2.0
+0064 SOMA          F3     H3      
+                  -H2     H3
+0065 COMPAR .LE.   H3     F4
+                   F2     F4
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        V1     0.0
+DEFVAL        AUX1   1.0   
+DEFVAL        B3     #T2
+DEFVAL        A4     0.0
+DEFVAL        B4     0.0
+DEFVAL        F4     0.0 
+DEFVAL        G4     0.0
+DEFVAL        B2     0.0
+DEFVAL  TAP   D6
+DEFVAL  TAP   D5
+DEFVAL  TAP   D4
+DEFVAL  TAP   D3 
+DEFVAL        F3     #T1
+DEFVAL        VREF   #VREF
+FIMCDU
+(
+(**********************************************************************
+(
+(ncdu) ( nome cdu )
+ 4501  LTC_TF
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #BM1   0.01
+DEFPAR #BM2   0.01
+(flag1
+DEFPAR #T1    20.0
+DEFPAR #T2    5.0
+(DEFPAR #Tm    0.05 
+DEFPAR #TAP   0.01
+DEFPAR #VREF  1.0146
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+( Sensor com Banda Morta ----------------------------------------------                                 
+0001 IMPORT VLTc          VT
+0002 ENTRAD               VREF
+0003 SOMA         +VT     A1
+                  -VREF   A1
+0004 FUNCAO SINAL  A1     A2
+0005 FUNCAO ABS    A1     A3        
+0006 FUNCAO HISTE1 A3     A4     #BM1  0.0   1
+                                 #BM2  1.0
+0007 MULTPL        A4     A5
+                   A2     A5
+( Temporização T2 -----------------------------------------------------                                 
+0009 LOGIC  .NOT.  A4     A6   
+0010 LOGIC  .OR.   A6     B1                                            RESET
+                   D12    B1
+0011 ENTRAD               V1                                            VINIC
+0012 ENTRAD               AUX1
+0013 INTRES        AUX1   B2     1.0 
+                   B1     B2
+                   V1     B2
+0014 ENTRAD               B3
+0015 IMPORT DT            C1
+0016 GANHO         C1     C2     2.0
+0017 SOMA          B3     C3      
+                  -C2     C3
+0018 COMPAR .LE.   C3     B4
+                   B2     B4
+(0019 DELAY         B4     B5
+( Saída ---------------------------------------------------------------                                 
+0020 S/HOLD        A5     D1
+                   G4     D1
+0021 GANHO         D1     D2     #TAP  
+0022 SOMA          D2     D3
+                   D5     D3
+0023 S/HOLD        D3     D4
+                   G4     D4
+0024 DELAY         D4     D5  
+0025 DELAY         D5     D6 
+(0026 EXPORT TAP    D6
+0027 SOMA          D6     D7
+                  -D5     D7
+0028 FUNCAO ABS    D7     D8                         
+0029 GANHO         AUX1   D9     #TAP                  
+0030 COMPAR .GE.   D8     D10
+                   D9     D10    
+0031 DELAY         D10    D11
+0032 DELAY         D11    D12 
+(
+0040 IMPORT TAPMIN        E1
+0041 IMPORT TAPMAX        E2
+0042 LIMITA        D6     E3                              E1     E2          
+0043 EXPORT TAP    E3    
+( Seleção de Temporização ---------------------------------------------
+0050 LOGIC  .NOT.  D12    G1
+0051 GANHO         AUX1   G2     1.0
+0052 ACUM          AUX1   G3     -1.0                                                    
+                   G1     G3
+                   A6     G3
+                   G2     G3
+0053 SELET2        B4     G4
+                   F4     G4
+                   G3     G4
+0054 SAIDA         G4                                     
+( Temporização T1 -----------------------------------------------------                                 
+0060 INTRES        AUX1   F2     1.0 
+                   B1     F2
+                   V1     F2
+0061 ENTRAD               F3
+0062 IMPORT DT            H1
+0063 GANHO         H1     H2     2.0
+0064 SOMA          F3     H3      
+                  -H2     H3
+0065 COMPAR .LE.   H3     F4
+                   F2     F4
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        V1     0.0
+DEFVAL        AUX1   1.0   
+DEFVAL        B3     #T2
+DEFVAL        A4     0.0
+DEFVAL        B4     0.0
+DEFVAL        F4     0.0 
+DEFVAL        G4     0.0
+DEFVAL        B2     0.0
+DEFVAL  TAP   D6
+DEFVAL  TAP   D5
+DEFVAL  TAP   D4
+DEFVAL  TAP   D3 
+DEFVAL        F3     #T1
+DEFVAL        VREF   #VREF
+FIMCDU
+(
+(**********************************************************************
+(
+(ncdu) ( nome cdu )
+ 4502  LTC_TF
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #BM1   0.01
+DEFPAR #BM2   0.01
+(flag1
+DEFPAR #T1    20.0
+DEFPAR #T2    5.0
+(DEFPAR #Tm    0.05 
+DEFPAR #TAP   0.01
+DEFPAR #VREF  1.0146
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+( Sensor com Banda Morta ----------------------------------------------                                 
+0001 IMPORT VLTc          VT
+0002 ENTRAD               VREF
+0003 SOMA         +VT     A1
+                  -VREF   A1
+0004 FUNCAO SINAL  A1     A2
+0005 FUNCAO ABS    A1     A3        
+0006 FUNCAO HISTE1 A3     A4     #BM1  0.0   1
+                                 #BM2  1.0
+0007 MULTPL        A4     A5
+                   A2     A5
+( Temporização T2 -----------------------------------------------------                                 
+0009 LOGIC  .NOT.  A4     A6   
+0010 LOGIC  .OR.   A6     B1                                            RESET
+                   D12    B1
+0011 ENTRAD               V1                                            VINIC
+0012 ENTRAD               AUX1
+0013 INTRES        AUX1   B2     1.0 
+                   B1     B2
+                   V1     B2
+0014 ENTRAD               B3
+0015 IMPORT DT            C1
+0016 GANHO         C1     C2     2.0
+0017 SOMA          B3     C3      
+                  -C2     C3
+0018 COMPAR .LE.   C3     B4
+                   B2     B4
+(0019 DELAY         B4     B5
+( Saída ---------------------------------------------------------------                                 
+0020 S/HOLD        A5     D1
+                   G4     D1
+0021 GANHO         D1     D2     #TAP  
+0022 SOMA          D2     D3
+                   D5     D3
+0023 S/HOLD        D3     D4
+                   G4     D4
+0024 DELAY         D4     D5  
+0025 DELAY         D5     D6 
+(0026 EXPORT TAP    D6
+0027 SOMA          D6     D7
+                  -D5     D7
+0028 FUNCAO ABS    D7     D8                         
+0029 GANHO         AUX1   D9     #TAP                  
+0030 COMPAR .GE.   D8     D10
+                   D9     D10    
+0031 DELAY         D10    D11
+0032 DELAY         D11    D12 
+(
+0040 IMPORT TAPMIN        E1
+0041 IMPORT TAPMAX        E2
+0042 LIMITA        D6     E3                              E1     E2          
+0043 EXPORT TAP    E3    
+( Seleção de Temporização ---------------------------------------------
+0050 LOGIC  .NOT.  D12    G1
+0051 GANHO         AUX1   G2     1.0
+0052 ACUM          AUX1   G3     -1.0                                                    
+                   G1     G3
+                   A6     G3
+                   G2     G3
+0053 SELET2        B4     G4
+                   F4     G4
+                   G3     G4
+0054 SAIDA         G4                                     
+( Temporização T1 -----------------------------------------------------                                 
+0060 INTRES        AUX1   F2     1.0 
+                   B1     F2
+                   V1     F2
+0061 ENTRAD               F3
+0062 IMPORT DT            H1
+0063 GANHO         H1     H2     2.0
+0064 SOMA          F3     H3      
+                  -H2     H3
+0065 COMPAR .LE.   H3     F4
+                   F2     F4
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        V1     0.0
+DEFVAL        AUX1   1.0   
+DEFVAL        B3     #T2
+DEFVAL        A4     0.0
+DEFVAL        B4     0.0
+DEFVAL        F4     0.0 
+DEFVAL        G4     0.0
+DEFVAL        B2     0.0
+DEFVAL  TAP   D6
+DEFVAL  TAP   D5
+DEFVAL  TAP   D4
+DEFVAL  TAP   D3 
+DEFVAL        F3     #T1
+DEFVAL        VREF   #VREF
+FIMCDU
+(
+(**********************************************************************
+(
+999999
+(
+FIM

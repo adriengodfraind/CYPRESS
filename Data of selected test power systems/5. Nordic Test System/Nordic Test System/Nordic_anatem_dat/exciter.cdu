@@ -1,0 +1,2064 @@
+(----------------------------------------------------------------------
+(
+(         Task Force on Test Systems for Voltage Stability
+(
+(                           Nordic System
+(
+(              Jhonatan Andrade dos Santos - EESC|USP
+(                 Rodrigo Andrade Ramos - EESC|USP
+(
+( If you are a registered user of ANAREDE/ANATEM, in case you experience
+( any dificulties with the use of these programs, you should send an 
+( e-mail to support-anarede [anatem] dre@cepel.br [anatem@cepel.br]
+(
+(---------------------------------------------------------------------- 
+DCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+101    Exciter101 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+102    Exciter102 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+103    Exciter103 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+104    Exciter104 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    150 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+105    Exciter105 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+106    Exciter106 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     1 
+DEFPAR #r     0 
+DEFPAR #L1    -20 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+107    Exciter107 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     1 
+DEFPAR #r     0 
+DEFPAR #L1    -20 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+108    Exciter108 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+109    Exciter109 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+110    Exciter110 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+111    Exciter111 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     1 
+DEFPAR #r     0 
+DEFPAR #L1    -20 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+112    Exciter112 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     1 
+DEFPAR #r     0 
+DEFPAR #L1    -20 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.2 
+DEFPAR #T2    0.01 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+113    Exciter113 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 2.9579 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -17 
+DEFPAR #G     50 
+DEFPAR #Ta    4 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    0 
+DEFPAR #Tw    1 
+DEFPAR #T1    1 
+DEFPAR #T2    1 
+DEFPAR #XdXl  1.4 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+114    Exciter114 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -18 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+115    Exciter115 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -18 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+116    Exciter116 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -18 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+117    Exciter117 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -18 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    150 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+118    Exciter118 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -18 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    150 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+119    Exciter119 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    0 
+DEFPAR #Tw    1 
+DEFPAR #T1    1 
+DEFPAR #T2    1 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+120    Exciter120 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 1.8991 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -11 
+DEFPAR #G     70 
+DEFPAR #Ta    10 
+DEFPAR #Tb    20 
+DEFPAR #L2    4 
+DEFPAR #Kp    0 
+DEFPAR #Tw    1 
+DEFPAR #T1    1 
+DEFPAR #T2    1 
+DEFPAR #XdXl  0.95 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+1115    Exciter1115 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -18 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+1116    Exciter1116 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -18 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    75 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+( 
+(********************************************************************** 
+(ncdu) ( nome cdu ) 
+1118    Exciter1118 
+(---------------------------------------------------------------------- 
+(EFPAR (npar) (     valpar     ) 
+(---------------------------------------------------------------------- 
+DEFPAR #Ifdmx 3.0618 
+DEFPAR #f     0 
+DEFPAR #r     1 
+DEFPAR #L1    -18 
+DEFPAR #G     120 
+DEFPAR #Ta    5 
+DEFPAR #Tb    12.5 
+DEFPAR #L2    5 
+DEFPAR #Kp    150 
+DEFPAR #Tw    15 
+DEFPAR #T1    0.22 
+DEFPAR #T2    0.012 
+DEFPAR #XdXl  2.05 
+DEFPAR #Tmx   1000000 
+(---------------------------------------------------------------------- 
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax) 
+(---------------------------------------------------------------------- 
+( PSS 
+0001 IMPORT WMAQ           X0 
+0002 GANHO         X0      X1    #Kp 
+0003 WSHOUT        X1      X2    1.0   1.0   #Tw 
+0004 LEDLAG        X2      X3    1.0   #T1   1.0   #T2 
+0005 LEDLAG        X3      X4    1.0   #T1   1.0   #T2 
+0006 LIMITA        X4      X5                             Cmin   Cmax   
+( Ponto de Soma 
+0007 IMPORT VTR            X6 
+0008 ENTRAD                V0 
+( Inicialização ------------------------------- 
+0009*SOMA         +V0      Xaux1 
+                  -X6      Xaux1 
+                  +X5      Xaux1 
+                  -V0ini   Xaux1 
+( ---------------------------------------------                   
+0010 SOMA         +V0      X7 
+                  -X6      X7 
+                  +X5      X7 
+                  +Xaux1   X7 
+( Limitador de Sobrexcitação  
+0011 IMPORT IFD            X8 
+0012 GANHO         X8      IFDX  #XdXl 
+0013 ENTRAD                Ifdmx 
+0014 SOMA         +IFDX     X9 
+                  -Ifdmx   X9 
+0015 FUNCAO DEADB2 X9      X10   -0.1  -1.0  0.0   1.0 
+0016 MULTPL       +X10     X11    
+                  +X9      X11 
+0017 FUNCAO RETA   X11     X12   #r    #f 
+0018 GANHO         X10     Xaux2 1.0 
+0019 SELET2        X10     X13 
+                   X12     X13 
+                   Xaux2   X13 
+0020 PROINT        X13     X14   1.0   0.0   1.0          L1     Tmx 
+0021 GANHO         X9      X15   -1.0 
+0022 SELET2        X7      X16 
+                   X15     X16 
+                   X14     X16 
+( AVR 
+0023 MIN           X16     X17 
+                   X7      X17 
+0024 GANHO         X17     X18   #G 
+0025 LEDLAG        X18     X19   1.0   #Ta   1.0   #Tb 
+0026 SOMA          X19     X20 
+                  -X22     X20 
+0027 GANHO         X20     X21   10                      
+0028 PROINT        X21     X22   1.0   0.0   1.0          EFDmin L2                                         
+0029 EXPORT  EFD   X22 
+( Inicialização de Variáveis 
+0030 ENTRAD                EFD0 
+0031 FRACAO        EFD0    V0ini 1.0         #G 
+(---------------------------------------------------------------------- 
+(EFVAL (Tipo) (Vdef) ( D1 ) 
+DEFVAL        Cmin   -0.1 
+DEFVAL        Cmax   0.1 
+DEFVAL        Ifdmx  #Ifdmx 
+DEFVAL        L1     #L1 
+DEFVAL        Tmx    #Tmx 
+DEFVAL        EFDmin 0.0   
+DEFVAL        L2     #L2 
+DEFVAL        Xaux1  0.0 
+DEFVAL        X14    #L1 
+DEFVAL EFD    EFD0   
+FIMCDU 
+999999 
+FIM 

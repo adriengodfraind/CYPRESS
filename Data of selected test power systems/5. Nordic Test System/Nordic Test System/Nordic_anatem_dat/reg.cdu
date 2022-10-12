@@ -1,0 +1,715 @@
+(----------------------------------------------------------------------
+(
+(         Task Force on Test Systems for Voltage Stability
+(
+(                           Nordic System
+(
+(              Jhonatan Andrade dos Santos - EESC|USP
+(                 Rodrigo Andrade Ramos - EESC|USP
+(
+( If you are a registered user of ANAREDE/ANATEM, in case you experience
+( any dificulties with the use of these programs, you should send an 
+( e-mail to support-anarede [anatem] dre@cepel.br [anatem@cepel.br]
+(
+(----------------------------------------------------------------------
+(
+DCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  201  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  202  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  203  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  204  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  205  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  208  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  209  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  210  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  211  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  212  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.04
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  219  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.08
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+(
+(**********************************************************************
+(ncdu) ( nome cdu )
+  220  RV
+(----------------------------------------------------------------------
+(EFPAR (npar) (     valpar     )
+(----------------------------------------------------------------------
+DEFPAR #Sig   0.08
+DEFPAR #W0    1.0
+DEFPAR #Tw    1.0
+DEFPAR #Hs    1.0   
+(----------------------------------------------------------------------
+(nb) (tipo) (stip)s(vent) (vsai) ( p1 )( p2 )( p3 )( p4 ) (vmin) (vmax)
+(----------------------------------------------------------------------
+0001 IMPORT WMAQ          W
+0002 IMPORT PELE          P
+0003 ENTRAD               P0
+0004 ENTRAD               W0
+0005 SOMA         -W      A1
+                  +W0     A1
+0006 LEDLAG        P      A2     1.0         1.0   2.0
+0007 SOMA         -A2     A3
+                  +P0     A3
+0008 GANHO         A3     A4     #Sig 
+0009 SOMA         +A1     A5
+                  +A4     A5
+0010 GANHO         A5     A6     2.0
+0011 GANHO         A5     A7     0.4
+0012 PROINT        A7     A8     1.0         1.0                              
+0013 SOMA         +A6     A9
+                  +A8     A9
+0014 SOMA         +A9     A10
+                  -Z      A10
+0015 GANHO         A10    A11    5.0
+0016 LIMITA        A11    A12                              Lim1a Lim1b
+0017 PROINT        A12    Z      1.0         1.0           Lim2a Lim2b
+( Turbina
+(0018 ENTRAD               Z
+0019 ENTRAD               Hs
+0020 DIVSAO       +Q      X1
+                  +Z      X1
+0021 FUNCAO X**2   X1     H
+0022 SOMA          Hs     X3
+                  -H      X3
+0023 FRACAO        X3     X4     1.0         #Tw
+0024 PROINT        X4     Q      1.0         1.0
+0025 MULTPL       +Q      Pout
+                  +H      Pout           
+0026 EXPORT PMEC   Pout                  
+(----------------------------------------------------------------------
+(EFVAL (Tipo) (Vdef) ( D1 )
+DEFVAL        Hs     #Hs
+DEFVAL        W0     #W0
+DEFVAL        Lim1a  -0.1
+DEFVAL        Lim1b  +0.1    
+DEFVAL        Lim2a   0.0    
+DEFVAL        Lim2b  +1.0    
+FIMCDU
+999999
+(
+FIM

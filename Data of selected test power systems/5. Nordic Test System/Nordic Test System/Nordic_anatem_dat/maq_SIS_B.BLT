@@ -1,0 +1,187 @@
+(----------------------------------------------------------------------
+(
+(         Task Force on Test Systems for Voltage Stability
+(
+(                           Nordic System
+(
+(              Jhonatan Andrade dos Santos - EESC|USP
+(                 Rodrigo Andrade Ramos - EESC|USP
+(
+( If you are a registered user of ANAREDE/ANATEM, in case you experience
+( any dificulties with the use of these programs, you should send an 
+( e-mail to support-anarede [anatem] dre@cepel.br [anatem@cepel.br]
+(
+(----------------------------------------------------------------------
+(
+(===============================================================================
+( DADOS DE MODELOS DE BARRAS INFINITAS
+(===============================================================================
+(
+DMDG MD01
+( Barra infinita 60 Hz
+(No) O (L'd)(Ra )( H )( D )(MVA)Fr C
+(
+999999
+( -------------------------------------------
+( - MODELOS DE MÁQUINAS DE PÓLOS SALINENTES -
+( -------------------------------------------
+DMDG MD02
+(
+( Gerador g1
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0001   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0001        3.0       800  50
+(
+( Gerador g2
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0002   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0002        3.0       600  50
+(
+( Gerador g3
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0003   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0003        3.0       700  50
+(
+( Gerador g4
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0004   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0004        3.0       600  50
+(
+( Gerador g5
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0005   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0005        3.0       250  50
+(
+( Gerador g8
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0008   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0008        3.0       850  50
+(
+( Gerador g9
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0009   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0009        3.0       1000 50
+(
+( Gerador g10
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0010   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0010        3.0       800  50
+(
+( Gerador g11
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0011   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0011        3.0       300  50
+(
+( Gerador g12
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0012   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0012        3.0       350  50
+(
+( Gerador g19
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0019   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0019        3.0       500  50
+(
+( Gerador g20
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0020   0001 110.0 70.0 25.0      20.0 15.0 5.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0020        3.0       4500 50
+(
+(
+( Gerador g13
+(No)   (CS) (Xd )(Xq )(X'd)     (X"d)(Xl )(T'd)     (T"d)(T"q)
+0013   0001 155.0100.0 30.0      20.0 15.0 7.0       0.05 0.10
+(No)   (Ra )( H )( D )(MVA)Fr C
+0013        2.0       300  50
+(
+999999
+( --------------------------------------
+( - MODELOS DE MÁQUINAS DE PÓLOS LISOS -
+( --------------------------------------
+DMDG MD03
+( Gerador 06
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+0006   0001 220.0200.0 30.0 40.0 20.0 15.0  7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+0006        6.0       400  50
+(
+( Gerador 07
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+0007   0001 220.0200.0 30.0 40.0 20.0 15.0  7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+0007        6.0       200  50
+(
+( Gerador 14
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+0014   0001 220.0200.0 30.0 40.0 20.0 15.0  7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+0014        6.0       700  50
+(
+( Gerador 15
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+0015   0001 220.0200.0 30.0 40.0 20.0 15.0 7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+0015        6.0        600 50
+(
+( Gerador 15 b
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+1015   0001 220.0200.0 30.0 40.0 20.0 15.0 7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+1015        6.0        600 50
+(
+( Gerador 16 
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+0016   0001 220.0200.0 30.0 40.0 20.0 15.0  7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+0016        6.0       700  50
+(
+( Gerador 16 b
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+1016   0001 220.0200.0 30.0 40.0 20.0 15.0  7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+1016        6.0       700  50
+(
+( Gerador 17
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+0017   0001 220.0200.0 30.0 40.0 20.0 15.0  7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+0017        6.0       600  50
+(
+( Gerador 18
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+0018   0001 220.0200.0 30.0 40.0 20.0 15.0  7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+0018        6.0        600 50
+(
+( Gerador 18 b
+(No)   (CS) (Xd )(Xq )(X'd)(X'q)(X"d)(Xl )(T'd)(T'q)(T"d)(T"q)
+1018   0001 220.0200.0 30.0 40.0 20.0 15.0  7.0  1.5 0.05 0.05
+(No)   (Ra )( H )( D )(MVA)Fr C
+1018        6.0        600 50
+(
+999999
+(
+(===============================================================================
+( DADOS DE CURVAS DE SATURACAO DAS MAQUINAS
+(===============================================================================
+(
+DCST
+(Tipo exponencial KUNDUR@114 
+(No)   T (  Y1  ) (  Y2  ) (  X1  )
+0001   2 0.005    5.49306  0.45463
+(
+999999
+(
+FIM
