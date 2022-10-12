@@ -1,5 +1,5 @@
 # IEEE RTS
----
+
 ## IEEE 24-bus
 **File**: case24_ieee_rts.py  
 **Source**: [Pypower library](https://github.com/rwl/PYPOWER/tree/master/pypower)
