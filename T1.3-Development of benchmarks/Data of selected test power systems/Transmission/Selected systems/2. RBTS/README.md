@@ -27,4 +27,4 @@ The only data found is a m-file containing an improvement of the distribution sy
 - RBTS.py: OPF data in pandapower format
 - RBTS_ACOPF_peak.iidm: load flow resulting from an ACOPF (no security constraints) on the above data at peak load exported to Dynawo/PowSyBl format
 
-Dynamic data and models on [https://github.com/FredericSabot/dynawo/tree/3_RBTS](https://github.com/FredericSabot/dynawo/tree/3_RBTS) (to be refined)
+Dynamic data and models on [https://github.com/FredericSabot/dynawo/tree/9_Cosim/examples/DynaSwing/RBTS](https://github.com/FredericSabot/dynawo/tree/9_Cosim/examples/DynaSwing/RBTS) (to be refined)
